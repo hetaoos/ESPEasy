@@ -568,7 +568,7 @@ struct SecurityStruct
   char          WifiSSID2[32];
   char          WifiKey2[64];
   char          WifiAPKey[64];
-  char          ControllerUser[CONTROLLER_MAX][26];
+  char          ControllerUser[CONTROLLER_MAX][64];
   char          ControllerPassword[CONTROLLER_MAX][64];
   char          Password[26];
   byte          AllowedIPrangeLow[4]; // TD-er: Use these
