@@ -56,26 +56,13 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
           StaticJsonBuffer<200> jsonBuffer;
 
           JsonObject& root = jsonBuffer.createObject();
-          root[F("idx")] = event->idx;
-          root[F("deviceName")] = ExtraTaskSettings.TaskDeviceName;
+          //root[F("idx")] = event->idx;
+          //root[F("deviceName")] = ExtraTaskSettings.TaskDeviceName;
           JsonObject& data = root.createNestedObject("reported");
           switch (event->sensorType)
           {
             case SENSOR_TYPE_SWITCH:
-              data[F("command")] = String(F("switchlight"));
-              if (UserVar[event->BaseVarIndex] == 0)
-                data[F("switchcmd")] = String(F("Off"));
-              else
-                data[F("switchcmd")] = String(F("On"));
-              break;
             case SENSOR_TYPE_DIMMER:
-              data[F("command")] = String(F("switchlight"));
-              if (UserVar[event->BaseVarIndex] == 0)
-                data[F("switchcmd")] = String(F("Off"));
-              else
-                data[F("Set%20Level")] = UserVar[event->BaseVarIndex];
-              break;
-
             case SENSOR_TYPE_SINGLE:
             case SENSOR_TYPE_LONG:
             case SENSOR_TYPE_DUAL:
@@ -88,13 +75,24 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
             case SENSOR_TYPE_WIND:
             default:
               {
+                String name;
+                //String prop_name = F("");
                 byte valueCount = getValueCountFromSensorType(event->sensorType);
                 for (byte x = 0; x < valueCount; x++)
                 {
-                  String name = F("value");
+                  name = F("value");
+                  name += event->idx;
+                  name += "_";
                   name += x;
                   data[name]  = formatUserVarNoCheck(event, x);
+                  //prop_name + = ExtraTaskSettings.TaskDeviceValueNames[x];
+                  //if (x < valueCount - 1)
+                  //  prop_name += ", ";
                 }
+                data[F("idx")] = event->idx;
+                data[F("type")] =  Settings.TaskDeviceNumber[event->TaskIndex];
+                //data[F("device_name")] = ExtraTaskSettings.TaskDeviceName;
+                //data[F("property_names")] = prop_name;
               }
               break;
           }
