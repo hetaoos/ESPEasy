@@ -19,6 +19,7 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
         Protocol[++protocolCount].Number = CPLUGIN_ID_014;
         Protocol[protocolCount].usesMQTT = true;
         Protocol[protocolCount].usesTemplate = false;
+        Protocol[protocolCount].usesClientId = true;
         Protocol[protocolCount].usesAccount = true;
         Protocol[protocolCount].usesPassword = true;
         Protocol[protocolCount].defaultPort = 1883;

@@ -140,7 +140,11 @@ bool MQTTConnect(int controller_idx)
 
   // MQTT needs a unique clientname to subscribe to broker
   String clientid;
-  if(Settings.MQTTUseUnitNameAsClientId){
+  if(SecuritySettings.ControllerClientId[controller_idx] != 0)
+  {
+    clientid = SecuritySettings.ControllerClientId[controller_idx];
+  }
+  else if(Settings.MQTTUseUnitNameAsClientId){
     clientid = Settings.Name;
     clientid += F("_");
     clientid += Settings.Unit;

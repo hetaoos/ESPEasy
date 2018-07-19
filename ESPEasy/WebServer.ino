@@ -1139,6 +1139,7 @@ void handle_controllers() {
   String controllerhostname = WebServer.arg(F("controllerhostname"));
   const int controllerport = getFormItemInt(F("controllerport"), 0);
   const int protocol = getFormItemInt(F("protocol"), -1);
+  String controllerclientid = WebServer.arg(F("controllerclientid"));
   String controlleruser = WebServer.arg(F("controlleruser"));
   String controllerpassword = WebServer.arg(F("controllerpassword"));
   String controllersubscribe = WebServer.arg(F("controllersubscribe"));
@@ -1215,6 +1216,7 @@ void handle_controllers() {
         //copy settings to struct
         Settings.ControllerEnabled[controllerindex] = isFormItemChecked(F("controllerenabled"));
         ControllerSettings.Port = controllerport;
+        strncpy(SecuritySettings.ControllerClientId[controllerindex], controllerclientid.c_str(), sizeof(SecuritySettings.ControllerClientId[0]));
         strncpy(SecuritySettings.ControllerUser[controllerindex], controlleruser.c_str(), sizeof(SecuritySettings.ControllerUser[0]));
         //strncpy(SecuritySettings.ControllerPassword[controllerindex], controllerpassword.c_str(), sizeof(SecuritySettings.ControllerPassword[0]));
         copyFormPassword(F("controllerpassword"), SecuritySettings.ControllerPassword[controllerindex], sizeof(SecuritySettings.ControllerPassword[0]));
@@ -1319,6 +1321,14 @@ void handle_controllers() {
 
         addFormNumericBox( F("Controller Port"), F("controllerport"), ControllerSettings.Port, 1, 65535);
 
+        if (Protocol[ProtocolIndex].usesClientId)
+        {
+           String protoDisplayName;
+          if (!getControllerProtocolDisplayName(ProtocolIndex, CONTROLLER_CLIENT_ID, protoDisplayName)) {
+            protoDisplayName = F("Client Id");
+          }
+          addFormTextBox(protoDisplayName, F("controllerclientid"), SecuritySettings.ControllerClientId[controllerindex], sizeof(SecuritySettings.ControllerClientId[0])-1);
+         }
         if (Protocol[ProtocolIndex].usesAccount)
         {
            String protoDisplayName;

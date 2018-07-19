@@ -245,6 +245,7 @@
 #define CONTROLLER_HOSTNAME                 1
 #define CONTROLLER_IP                       2
 #define CONTROLLER_PORT                     3
+#define CONTROLLER_CLIENT_ID               11
 #define CONTROLLER_USER                     4
 #define CONTROLLER_PASS                     5
 #define CONTROLLER_SUBSCRIBE                6
@@ -558,6 +559,7 @@ struct SecurityStruct
     memset(WifiKey2, 0, sizeof(WifiKey2));
     memset(WifiAPKey, 0, sizeof(WifiAPKey));
     for (byte i = 0; i < CONTROLLER_MAX; ++i) {
+      memset(ControllerClientId[i], 0, sizeof(ControllerClientId[i]));
       memset(ControllerUser[i], 0, sizeof(ControllerUser[i]));
       memset(ControllerPassword[i], 0, sizeof(ControllerPassword[i]));
     }
@@ -568,6 +570,7 @@ struct SecurityStruct
   char          WifiSSID2[32];
   char          WifiKey2[64];
   char          WifiAPKey[64];
+  char          ControllerClientId[CONTROLLER_MAX][64];
   char          ControllerUser[CONTROLLER_MAX][64];
   char          ControllerPassword[CONTROLLER_MAX][64];
   char          Password[26];
@@ -1068,10 +1071,11 @@ struct DeviceStruct
 struct ProtocolStruct
 {
   ProtocolStruct() :
-    Number(0), usesMQTT(false), usesAccount(false), usesPassword(false),
+    Number(0), usesMQTT(false), usesClientId(false), usesAccount(false), usesPassword(false),
     defaultPort(0), usesTemplate(false), usesID(false), Custom(false) {}
   byte Number;
   boolean usesMQTT;
+  boolean usesClientId;
   boolean usesAccount;
   boolean usesPassword;
   int defaultPort;
