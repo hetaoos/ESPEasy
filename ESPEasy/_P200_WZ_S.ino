@@ -23,6 +23,9 @@
 ESPeasySoftwareSerial *swSerial = NULL;
 boolean Plugin_200_init = false;
 boolean values_received = false;
+float last_value = -1;
+int ticks = 0;
+
 
 void SerialFlush() {
   if (swSerial != NULL) {
@@ -86,6 +89,14 @@ boolean Plugin_200_process_data(struct EventStruct *event) {
   uint8_t  high = data[4];
   uint8_t  low = data[5];
   float r1 =   high * 256.0 + low;
+  // ignored if the value has not changed and reported time is less than 1 minute
+  if (!(r1 != last_value || ticks >= 600))
+  {
+    SerialFlush(); // Make sure no data is lost due to full buffer.
+    return false;
+  }
+  last_value = r1;
+  ticks = 0;
   float r2 = r1 * 30.03 / 22.4;
   float r3 = r2 / 1000.0;
   log = F("WZ-S : ");
@@ -181,13 +192,15 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
         {
           log = F("WZ-S: using software serial");
           addLog(LOG_LEVEL_INFO, log);
-          swSerial = new ESPeasySoftwareSerial(rxPin, txPin, false, 54); // 54 Bytes buffer, enough for up to 6 packets.
+          swSerial = new ESPeasySoftwareSerial(rxPin, txPin, false, WZ_S_SIZE * 10); // 90 Bytes buffer, enough for up to 10 packets..
           swSerial->begin(9600);
           swSerial->flush();
         }
 
         Plugin_200_init = true;
         success = true;
+        last_value = -1;
+        ticks = 0;
         break;
       }
 
@@ -198,6 +211,8 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
           delete swSerial;
           swSerial = NULL;
         }
+        last_value = -1;
+        ticks = 0;
         break;
       }
 
@@ -208,6 +223,7 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
       {
         if (Plugin_200_init)
         {
+          ticks++;
           // Check if a complete packet is available in the UART FIFO.
           if (PacketAvailable())
           {
