@@ -22,12 +22,12 @@
 
 ESPeasySoftwareSerial *swSerial = NULL;
 boolean Plugin_200_init = false;
-boolean values_received = false;
-float last_value = -1;
-int ticks = 0;
+boolean Plugin_200_values_received = false;
+float Plugin_200_last_value = -1;
+int Plugin_200_ticks = 0;
 
 
-void SerialFlush() {
+void Plugin_200_SerialFlush() {
   if (swSerial != NULL) {
     swSerial->flush();
   } else {
@@ -35,7 +35,7 @@ void SerialFlush() {
   }
 }
 
-boolean PacketAvailable(void)
+boolean Plugin_200_PacketAvailable(void)
 {
   if (swSerial != NULL) // Software serial
   {
@@ -90,13 +90,15 @@ boolean Plugin_200_process_data(struct EventStruct *event) {
   uint8_t  low = data[5];
   float r1 =   high * 256.0 + low;
   // ignored if the value has not changed and reported time is less than 1 minute
-  if (!(r1 != last_value || ticks >= 600))
+
+
+  Plugin_200_SerialFlush(); // Make sure no data is lost due to full buffer.
+  if (!(r1 != Plugin_200_last_value || Plugin_200_ticks >= 600))
   {
-    SerialFlush(); // Make sure no data is lost due to full buffer.
     return false;
   }
-  last_value = r1;
-  ticks = 0;
+  Plugin_200_last_value = r1;
+  Plugin_200_ticks = 0;
   float r2 = r1 * 30.03 / 22.4;
   float r3 = r2 / 1000.0;
   log = F("WZ-S : ");
@@ -108,13 +110,11 @@ boolean Plugin_200_process_data(struct EventStruct *event) {
   log += F("mg/m³, ");
   addLog(LOG_LEVEL_DEBUG, log);
 
-  SerialFlush(); // Make sure no data is lost due to full buffer.
-
   // fill in output
   UserVar[event->BaseVarIndex]     = r1;
   UserVar[event->BaseVarIndex + 1] = r2;
   UserVar[event->BaseVarIndex + 2] = r3;
-  values_received = true;
+  Plugin_200_values_received = true;
   return true;
 }
 
@@ -199,8 +199,8 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
 
         Plugin_200_init = true;
         success = true;
-        last_value = -1;
-        ticks = 0;
+        Plugin_200_last_value = -1;
+        Plugin_200_ticks = 0;
         break;
       }
 
@@ -211,8 +211,8 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
           delete swSerial;
           swSerial = NULL;
         }
-        last_value = -1;
-        ticks = 0;
+        Plugin_200_last_value = -1;
+        Plugin_200_ticks = 0;
         break;
       }
 
@@ -223,9 +223,9 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
       {
         if (Plugin_200_init)
         {
-          ticks++;
+          Plugin_200_ticks++;
           // Check if a complete packet is available in the UART FIFO.
-          if (PacketAvailable())
+          if (Plugin_200_PacketAvailable())
           {
             addLog(LOG_LEVEL_DEBUG_MORE, F("WZ-S : Packet available"));
             success = Plugin_200_process_data(event);
@@ -236,8 +236,8 @@ boolean Plugin_200(byte function, struct EventStruct *event, String& string)
     case PLUGIN_READ:
       {
         // When new data is available, return true
-        success = values_received;
-        values_received = false;
+        success = Plugin_200_values_received;
+        Plugin_200_values_received = false;
         break;
       }
   }
