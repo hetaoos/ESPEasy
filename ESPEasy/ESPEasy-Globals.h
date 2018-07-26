@@ -276,7 +276,7 @@
 #if defined(PLUGIN_BUILD_TESTING) || defined(PLUGIN_BUILD_DEV)
   #define DEVICES_MAX                      75
 #else
-  #define DEVICES_MAX                      50
+  #define DEVICES_MAX                      60
 #endif
 
 #if defined(ESP8266)
@@ -288,7 +288,7 @@
 
 #define CONTROLLER_MAX                      3 // max 4!
 #define NOTIFICATION_MAX                    3 // max 4!
-#define VARS_PER_TASK                       4
+#define VARS_PER_TASK                       8
 #define PLUGIN_MAX                DEVICES_MAX
 #define PLUGIN_CONFIGVAR_MAX                8
 #define PLUGIN_CONFIGFLOATVAR_MAX           4
@@ -335,6 +335,10 @@
 #define SENSOR_TYPE_DIMMER                 11
 #define SENSOR_TYPE_LONG                   20
 #define SENSOR_TYPE_WIND                   21
+#define SENSOR_TYPE_PENTA                  30
+#define SENSOR_TYPE_HEXA                   31
+#define SENSOR_TYPE_HEPTA                  32 
+#define SENSOR_TYPE_OCTA                   33
 
 #define VALUE_SOURCE_SYSTEM                 1
 #define VALUE_SOURCE_SERIAL                 2

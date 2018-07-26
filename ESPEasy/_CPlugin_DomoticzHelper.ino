@@ -119,6 +119,40 @@ String formatDomoticzSensorType(struct EventStruct *event) {
     case SENSOR_TYPE_DIMMER:
       // Too specific for HTTP/MQTT
       break;
+      case SENSOR_TYPE_PENTA:
+      values  = formatUserVarDomoticz(event, 0);
+      values += formatUserVarDomoticz(event, 1);
+      values += formatUserVarDomoticz(event, 2);
+      values += formatUserVarDomoticz(event, 3);
+      values += formatUserVarDomoticz(event, 4);
+      break;
+     case SENSOR_TYPE_HEXA:
+      values  = formatUserVarDomoticz(event, 0);
+      values += formatUserVarDomoticz(event, 1);
+      values += formatUserVarDomoticz(event, 2);
+      values += formatUserVarDomoticz(event, 3);
+      values += formatUserVarDomoticz(event, 4);
+      values += formatUserVarDomoticz(event, 5);
+      break;
+    case SENSOR_TYPE_HEPTA:
+      values  = formatUserVarDomoticz(event, 0);
+      values += formatUserVarDomoticz(event, 1);
+      values += formatUserVarDomoticz(event, 2);
+      values += formatUserVarDomoticz(event, 3);
+      values += formatUserVarDomoticz(event, 4);
+      values += formatUserVarDomoticz(event, 5);
+      values += formatUserVarDomoticz(event, 6);
+      break;
+   case SENSOR_TYPE_OCTA:
+      values  = formatUserVarDomoticz(event, 0);
+      values += formatUserVarDomoticz(event, 1);
+      values += formatUserVarDomoticz(event, 2);
+      values += formatUserVarDomoticz(event, 3);
+      values += formatUserVarDomoticz(event, 4);
+      values += formatUserVarDomoticz(event, 5);
+      values += formatUserVarDomoticz(event, 6);
+      values += formatUserVarDomoticz(event, 7);
+      break;
     default:
     {
       String log = F("Domoticz Controller: Not yet implemented sensor type: ");

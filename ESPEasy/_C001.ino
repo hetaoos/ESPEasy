@@ -108,6 +108,10 @@ boolean CPlugin_001(byte function, struct EventStruct *event, String& string)
             case SENSOR_TYPE_TEMP_EMPTY_BARO:
             case SENSOR_TYPE_TEMP_HUM_BARO:
             case SENSOR_TYPE_WIND:
+            case SENSOR_TYPE_PENTA:
+            case SENSOR_TYPE_HEXA:
+            case SENSOR_TYPE_HEPTA:
+            case SENSOR_TYPE_OCTA:
             default:
               url = F("/json.htm?type=command&param=udevice&idx=");
               url += event->idx;
