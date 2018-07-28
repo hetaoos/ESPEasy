@@ -53,7 +53,7 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
             success = false;
             break;
           }
-          StaticJsonBuffer<200> jsonBuffer;
+          StaticJsonBuffer<512> jsonBuffer;
 
           JsonObject& root = jsonBuffer.createObject();
           //root[F("idx")] = event->idx;
