@@ -17,6 +17,7 @@ uint32_t syncInterval = 3600;  // time sync will be attempted after this many se
 uint32_t sysTime = 0;
 uint32_t prevMillis = 0;
 uint32_t nextSyncTime = 0;
+timeStruct tsRise, tsSet;
 timeStruct sunRise;
 timeStruct sunSet;
 
@@ -62,7 +63,6 @@ void calcSunRiseAndSet() {
 	float da = diurnalArc(dec, Settings.Latitude);
 	float rise = 12 - da - eqt - Settings.Longitude / 15.0;
 	float set = 12 + da - eqt - Settings.Longitude / 15.0;
-  timeStruct tsRise, tsSet;
   tsRise.Hour = (int)rise;
   tsRise.Minute = (rise - (int)rise) * 60.0;
   tsSet.Hour = (int)set;
@@ -72,6 +72,25 @@ void calcSunRiseAndSet() {
   tsRise.Year = tsSet.Year = tm.Year;
   breakTime(toLocal(makeTime(tsRise)), sunRise);
   breakTime(toLocal(makeTime(tsSet)), sunSet);
+}
+
+timeStruct getSunRise(int secOffset) {
+	return addSeconds(tsRise, secOffset, true);
+}
+
+timeStruct getSunSet(int secOffset) {
+	return addSeconds(tsSet, secOffset, true);
+}
+
+timeStruct addSeconds(const timeStruct& ts, int seconds, bool toLocalTime) {
+	unsigned long time = makeTime(ts);
+	time += seconds;
+	if (toLocalTime) {
+		time = toLocal(time);
+	}
+	timeStruct result;
+	breakTime(time, result);
+	return result;
 }
 
 void breakTime(unsigned long timeInput, struct timeStruct &tm) {
@@ -142,6 +161,30 @@ uint32_t getUnixTime() {
   return sysTime;
 }
 
+int getSecOffset(const String& format) {
+	int position_minus = format.indexOf('-');
+	int position_plus = format.indexOf('+');
+	if (position_minus == -1 && position_plus == -1)
+	  return 0;
+	int sign_position = _max(position_minus, position_plus);
+	int position_percent = format.indexOf('%', sign_position);
+	if (position_percent == -1) {
+		return 0;
+	}
+	String valueStr = getNumerical(format.substring(sign_position, position_percent), true);
+	if (!isInt(valueStr)) return 0;
+	int value = valueStr.toInt();
+	switch (format.charAt(position_percent - 1)) {
+		case 'm':
+		case 'M':
+		  return value * 60;
+		case 'h':
+		case 'H':
+			return value * 3600;
+	}
+	return value;
+}
+
 String getSunriseTimeString(char delimiter) {
   return getTimeString(sunRise, delimiter, false, false);
 }
@@ -149,6 +192,19 @@ String getSunriseTimeString(char delimiter) {
 String getSunsetTimeString(char delimiter) {
   return getTimeString(sunSet, delimiter, false, false);
 }
+
+String getSunriseTimeString(char delimiter, int secOffset) {
+	if (secOffset == 0)
+		return getSunriseTimeString(delimiter);
+  return getTimeString(getSunRise(secOffset), delimiter, false, false);
+}
+
+String getSunsetTimeString(char delimiter, int secOffset) {
+	if (secOffset == 0)
+		return getSunsetTimeString(delimiter);
+  return getTimeString(getSunSet(secOffset), delimiter, false, false);
+}
+
 
 unsigned long now() {
   // calculate number of seconds passed since last call to now()
@@ -331,16 +387,17 @@ unsigned long getNtpTime()
       secsSince1900 |= (unsigned long)packetBuffer[41] << 16;
       secsSince1900 |= (unsigned long)packetBuffer[42] << 8;
       secsSince1900 |= (unsigned long)packetBuffer[43];
-      log = F("NTP  : NTP replied: ");
-      log += timePassedSince(beginWait);
-      log += F(" mSec");
-      addLog(LOG_LEVEL_DEBUG_MORE, log);
+			if (loglevelActiveFor(LOG_LEVEL_DEBUG_MORE)) {
+	      String log = F("NTP  : NTP replied: ");
+	      log += timePassedSince(beginWait);
+	      log += F(" mSec");
+	      addLog(LOG_LEVEL_DEBUG_MORE, log);
+			}
       return secsSince1900 - 2208988800UL;
     }
     delay(10);
   }
-  log = F("NTP  : No reply");
-  addLog(LOG_LEVEL_DEBUG_MORE, log);
+  addLog(LOG_LEVEL_DEBUG_MORE, F("NTP  : No reply"));
   return 0;
 }
 
@@ -355,6 +412,7 @@ unsigned long getNtpTime()
 // Returned value is positive when "next" is after "prev"
 long timeDiff(const unsigned long prev, const unsigned long next)
 {
+	unsigned long start = ESP.getCycleCount();
   long signed_diff = 0;
   // To cast a value to a signed long, the difference may not exceed half the ULONG_MAX
   const unsigned long half_max_unsigned_long = 2147483647u; // = 2^31 -1
@@ -381,6 +439,11 @@ long timeDiff(const unsigned long prev, const unsigned long next)
       signed_diff = static_cast<long>((ULONG_MAX - prev) + next + 1u);
     }
   }
+	unsigned long end = ESP.getCycleCount();
+	if (end > start) {
+		++timediff_calls;
+		timediff_cpu_cycles_total += (end - start);
+	}
   return signed_diff;
 }
 
@@ -573,8 +636,9 @@ unsigned long string2TimeLong(const String &str)
   // format 0000WWWWAAAABBBBCCCCDDDD
   // WWWW=weekday, AAAA=hours tens digit, BBBB=hours, CCCC=minutes tens digit DDDD=minutes
 
+	#define TmpStr1Length 10
   char command[20];
-  char TmpStr1[10];
+  char TmpStr1[TmpStr1Length];
   int w, x, y;
   unsigned long a;
   {
@@ -585,7 +649,7 @@ unsigned long string2TimeLong(const String &str)
   }
   unsigned long lngTime = 0;
 
-  if (GetArgv(command, TmpStr1, 1))
+  if (GetArgv(command, TmpStr1, TmpStr1Length, 1))
   {
     String day = TmpStr1;
     String weekDays = F("allsunmontuewedthufrisatwrkwkd");
@@ -595,7 +659,7 @@ unsigned long string2TimeLong(const String &str)
     lngTime |= (unsigned long)y << 16;
   }
 
-  if (GetArgv(command, TmpStr1, 2))
+  if (GetArgv(command, TmpStr1, TmpStr1Length, 2))
   {
     y = 0;
     for (x = strlen(TmpStr1) - 1; x >= 0; x--)
@@ -619,6 +683,7 @@ unsigned long string2TimeLong(const String &str)
       }
     }
   }
+	#undef TmpStr1Length
   return lngTime;
 }
 
