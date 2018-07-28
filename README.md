@@ -5,6 +5,8 @@ Easy MultiSensor device based on ESP8266 https://github.com/letscontrolit/ESPEas
 - [Tutorial Arduino Firmware Upload](https://www.letscontrolit.com/wiki/index.php/Tutorial_Arduino_Firmware_Upload)
 
 # 修改内容
+## 合并
+- 2018-07-28 合并 [mega-20180723](https://github.com/letscontrolit/ESPEasy/commit/e596403c0a5cc3ffb0f02c972753941bbb32b3bf) [相关提交](https://github.com/hetaoos/ESPEasy/commit/c47d1c5303cc916e79e37a915d1f3b283d97cfeb)
 
 ## 补丁
 - 增加达特甲醛传感器 `WZ-S` 支持 [Plugin 200: Dart WZ-S](ESPEasy/_P200_WZ_S.ino)
