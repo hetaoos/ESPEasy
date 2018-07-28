@@ -166,44 +166,45 @@ boolean Plugin_201_process_data(struct EventStruct *event) {
       return false;
     }
   }
-  // Data is checked and good, fill in output
-  log = F("PMS5003ST : pm1.0=");
-  log += data[0];
-  log += F(", pm2.5=");
-  log += data[1];
-  log += F(", pm10=");
-  log += data[2];
-  log += F(", pm1.0a=");
-  log += data[3];
-  log += F(", pm2.5a=");
-  log += data[4];
-  log += F(", pm10a=");
-  log += data[5];
-  addLog(LOG_LEVEL_DEBUG_MORE, log);
+  if (loglevelActiveFor(LOG_LEVEL_DEBUG_MORE)) {
+    // Data is checked and good, fill in output
+    log = F("PMS5003ST : pm1.0=");
+    log += data[0];
+    log += F(", pm2.5=");
+    log += data[1];
+    log += F(", pm10=");
+    log += data[2];
+    log += F(", pm1.0a=");
+    log += data[3];
+    log += F(", pm2.5a=");
+    log += data[4];
+    log += F(", pm10a=");
+    log += data[5];
+    addLog(LOG_LEVEL_DEBUG_MORE, log);
 
-  log = F("PMS5003ST : count/0.1L : 0.3um=");
-  log += data[6];
-  log += F(", 0.5um=");
-  log += data[7];
-  log += F(", 1.0um=");
-  log += data[8];
-  log += F(", 2.5um=");
-  log += data[9];
-  log += F(", 5.0um=");
-  log += data[10];
-  log += F(", 10um=");
-  log += data[11];
-  addLog(LOG_LEVEL_DEBUG_MORE, log);
+    log = F("PMS5003ST : count/0.1L : 0.3um=");
+    log += data[6];
+    log += F(", 0.5um=");
+    log += data[7];
+    log += F(", 1.0um=");
+    log += data[8];
+    log += F(", 2.5um=");
+    log += data[9];
+    log += F(", 5.0um=");
+    log += data[10];
+    log += F(", 10um=");
+    log += data[11];
+    addLog(LOG_LEVEL_DEBUG_MORE, log);
 
-  log = F("PMS5003ST : formaldehyde : ");
-  log += (data[12] / 1000.0);
-  log += F(" mg/m³ , temperature: ");
-  log += (data[13] / 10.0);
-  log += F(" ℃, humidity :");
-  log += (data[14] / 10.0);
-  log += F(" %");
-  addLog(LOG_LEVEL_DEBUG_MORE, log);
-
+    log = F("PMS5003ST : formaldehyde : ");
+    log += (data[12] / 1000.0);
+    log += F(" mg/m³ , temperature: ");
+    log += (data[13] / 10.0);
+    log += F(" ℃, humidity :");
+    log += (data[14] / 10.0);
+    log += F(" %");
+    addLog(LOG_LEVEL_DEBUG_MORE, log);
+  }
 
   UserVar[event->BaseVarIndex]     = data[3];
   UserVar[event->BaseVarIndex + 1] = data[4];

@@ -101,14 +101,16 @@ boolean Plugin_200_process_data(struct EventStruct *event) {
   Plugin_200_ticks = 0;
   float r2 = r1 * 30.03 / 22.4;
   float r3 = r2 / 1000.0;
-  log = F("WZ-S : ");
-  log += r1;
-  log += F("ppb, ");
-  log += r2;
-  log += F("ug/m³, ");
-  log += r3;
-  log += F("mg/m³, ");
-  addLog(LOG_LEVEL_DEBUG, log);
+  if (loglevelActiveFor(LOG_LEVEL_DEBUG_MORE)) {
+    log = F("WZ-S : ");
+    log += r1;
+    log += F("ppb, ");
+    log += r2;
+    log += F("ug/m³, ");
+    log += r3;
+    log += F("mg/m³, ");
+    addLog(LOG_LEVEL_DEBUG_MORE, log);
+  }
 
   // fill in output
   UserVar[event->BaseVarIndex]     = r1;

@@ -103,10 +103,11 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
 
           String json;
           root.printTo(json);
-          String log = F("MQTT : ");
-          log += json;
-          addLog(LOG_LEVEL_DEBUG, log);
-
+          if (loglevelActiveFor(LOG_LEVEL_DEBUG)) {
+            String log = F("MQTT : ");
+            log += json;
+            addLog(LOG_LEVEL_DEBUG, log);
+          }
           String pubname = ControllerSettings.Publish;
           parseControllerVariables(pubname, event, false);
           if (!MQTTpublish(event->ControllerIndex, pubname.c_str(), json.c_str(), Settings.MQTTRetainFlag))
