@@ -1,47 +1,47 @@
-# ESPEasy
+ï»¿# ESPEasy
 Easy MultiSensor device based on ESP8266 https://github.com/letscontrolit/ESPEasy
 
 # How To
 - [Tutorial Arduino Firmware Upload](https://www.letscontrolit.com/wiki/index.php/Tutorial_Arduino_Firmware_Upload)
 
-# ĞŞ¸ÄÄÚÈİ
-## ºÏ²¢
-- 2018-07-28 ºÏ²¢ [mega-20180723](https://github.com/letscontrolit/ESPEasy/commit/e596403c0a5cc3ffb0f02c972753941bbb32b3bf) [Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/c47d1c5303cc916e79e37a915d1f3b283d97cfeb)
+# ä¿®æ”¹å†…å®¹
+## åˆå¹¶
+- 2018-07-28 åˆå¹¶ [mega-20180723](https://github.com/letscontrolit/ESPEasy/commit/e596403c0a5cc3ffb0f02c972753941bbb32b3bf) [ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/c47d1c5303cc916e79e37a915d1f3b283d97cfeb)
 
-## ²¹¶¡
-- Ôö¼Ó´ïÌØ¼×È©´«¸ĞÆ÷ `WZ-S` Ö§³Ö [Plugin 200: Dart WZ-S](ESPEasy/_P200_WZ_S.ino)
-- Ôö¼ÓÅÊÌÙPM2.5+¼×È©+ÎÂÊª¶È´«¸ĞÆ÷ `PMS5003ST` Ö§³Ö [Plugin 201: Plantower PMS5003ST](ESPEasy/_P201_PMS5003ST.ino)
+## è¡¥ä¸
+- å¢åŠ è¾¾ç‰¹ç”²é†›ä¼ æ„Ÿå™¨ `WZ-S` æ”¯æŒ [Plugin 200: Dart WZ-S](ESPEasy/_P200_WZ_S.ino)
+- å¢åŠ æ”€è—¤PM2.5+ç”²é†›+æ¸©æ¹¿åº¦ä¼ æ„Ÿå™¨ `PMS5003ST` æ”¯æŒ [Plugin 201: Plantower PMS5003ST](ESPEasy/_P201_PMS5003ST.ino)
 
-## ¿ØÖÆÆ÷
-- ĞÂÔö `°Ù¶È IOT MQTT` Ö§³Ö [Baidu MQTT](ESPEasy/_C014.ino) , ÏêÇéÇë²Î¼û [Ìì¹¤-ÖÇÄÜÎïÁªÍø](https://cloud.baidu.com/solution/iot/index.html)
+## æ§åˆ¶å™¨
+- æ–°å¢ `ç™¾åº¦ IOT MQTT` æ”¯æŒ [Baidu MQTT](ESPEasy/_C014.ino) , è¯¦æƒ…è¯·å‚è§ [å¤©å·¥-æ™ºèƒ½ç‰©è”ç½‘](https://cloud.baidu.com/solution/iot/index.html)
 
-## ÏµÍ³
-- ½«¿ØÖÆÆ÷Ãû³Æ´óĞ¡´Ó26¸ÄÎª64£¬ÒòÎª°Ù¶ÈMQTTµÄÓÃ»§Ãû±È½Ï³¤£¡£¡[Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/5d6178165ccef5dd0e6dd6114f4d0c9afca12209)
-- MQTT ÅäÖÃÖ§³ÖÉèÖÃ `Client Id`£¬ÒòÎª°Ù¶ÈMQTTÒªÇó`Client Id` ±È½ÏÌØÊâ£¬×Ô¶¯Éú³ÉµÄÎŞĞ§»òÕß²»·½±ãÅäÖÃ¡£[Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/14c33edc02204bbb59d0edb48d6d31b536ce2c5a)
-- ½«Ä¬ÈÏÉè±¸×î´óÊıÁ¿`DEVICES_MAX`´Ó50¸ÄÎª60 [Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
-- ½«Ä¬ÈÏÃ¿¸öÈÎÎñµÄ×î´óÊä³ö±äÁ¿Êı`VARS_PER_TASK`´Ó4¸ÄÎª8 [Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
-- Ôö¼Ó´«¸ĞÆ÷ÀàĞÍ`SENSOR_TYPE_*`£¬Ò²¾ÍÊÇ±êÃ÷´«¸ĞÆ÷ÓĞ¶àÉÙ¸öÊä³öÊı¾İµÄ¶¨Òå£º`SENSOR_TYPE_PENTA`¡¢`SENSOR_TYPE_HEXA`¡¢ `SENSOR_TYPE_HEPTA`¡¢`SENSOR_TYPE_OCTA`[Ïà¹ØÌá½»](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
+## ç³»ç»Ÿ
+- å°†æ§åˆ¶å™¨åç§°å¤§å°ä»26æ”¹ä¸º64ï¼Œå› ä¸ºç™¾åº¦MQTTçš„ç”¨æˆ·åæ¯”è¾ƒé•¿ï¼ï¼[ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/5d6178165ccef5dd0e6dd6114f4d0c9afca12209)
+- MQTT é…ç½®æ”¯æŒè®¾ç½® `Client Id`ï¼Œå› ä¸ºç™¾åº¦MQTTè¦æ±‚`Client Id` æ¯”è¾ƒç‰¹æ®Šï¼Œè‡ªåŠ¨ç”Ÿæˆçš„æ— æ•ˆæˆ–è€…ä¸æ–¹ä¾¿é…ç½®ã€‚[ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/14c33edc02204bbb59d0edb48d6d31b536ce2c5a)
+- å°†é»˜è®¤è®¾å¤‡æœ€å¤§æ•°é‡`DEVICES_MAX`ä»50æ”¹ä¸º60 [ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
+- å°†é»˜è®¤æ¯ä¸ªä»»åŠ¡çš„æœ€å¤§è¾“å‡ºå˜é‡æ•°`VARS_PER_TASK`ä»4æ”¹ä¸º8 [ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
+- å¢åŠ ä¼ æ„Ÿå™¨ç±»å‹`SENSOR_TYPE_*`ï¼Œä¹Ÿå°±æ˜¯æ ‡æ˜ä¼ æ„Ÿå™¨æœ‰å¤šå°‘ä¸ªè¾“å‡ºæ•°æ®çš„å®šä¹‰ï¼š`SENSOR_TYPE_PENTA`ã€`SENSOR_TYPE_HEXA`ã€ `SENSOR_TYPE_HEPTA`ã€`SENSOR_TYPE_OCTA`[ç›¸å…³æäº¤](https://github.com/hetaoos/ESPEasy/commit/f48a1eb1c84332f0378afc349824736c7b2c6dc1)
 
 
-# ÈçºÎ±àÒëÔ´Âë
+# å¦‚ä½•ç¼–è¯‘æºç 
 
-## ÅäÖÃ±àÒë»·¾³
-PS£ºÖ÷ÒªÊÇ¶Ô[Tutorial Arduino Firmware Upload](https://www.letscontrolit.com/wiki/index.php/Tutorial_Arduino_Firmware_Upload)µÄ¼òÒªËµÃ÷
-- ÏÂÔØºÍ°²×° [`Arduino IDE`](https://www.arduino.cc/en/Main/Software?setlang=cn)
-- `ÎÄ¼ş`-`Ê×Ñ¡Ïî` ÖĞ£¬ĞŞ¹ı`¸½¼Ó¿ª·¢°å¹ÜÀíÆ÷ÍøÖ·` Îª `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
-- `¹¤¾ß`-`¿ª·¢°æ"xxxx"`-`¿ª·¢°å¹ÜÀíÆ÷` ÖĞ£¬ËÑË÷ **ESP8266** £¬Ñ¡ÖĞ**esp8266 by ESP8266 Community**£¬²¢Ñ¡Ôñ×îĞÂ°²×°¡£
-- `¹¤¾ß`-`¿ª·¢°æ"xxxx"` ÖĞ£¬Ñ¡Ôñ**NodeMCU 1.0 (ESP-12E) Module**
-- `¹¤¾ß`-`¶Ë¿Ú"xxxx"` ÖĞ£¬Ñ°ÕÒ½ÓÈëNodeMCUºóÊ¶±ğµÄ´®¿Ú¡£
+## é…ç½®ç¼–è¯‘ç¯å¢ƒ
+PSï¼šä¸»è¦æ˜¯å¯¹[Tutorial Arduino Firmware Upload](https://www.letscontrolit.com/wiki/index.php/Tutorial_Arduino_Firmware_Upload)çš„ç®€è¦è¯´æ˜
+- ä¸‹è½½å’Œå®‰è£… [`Arduino IDE`](https://www.arduino.cc/en/Main/Software?setlang=cn)
+- `æ–‡ä»¶`-`é¦–é€‰é¡¹` ä¸­ï¼Œä¿®è¿‡`é™„åŠ å¼€å‘æ¿ç®¡ç†å™¨ç½‘å€` ä¸º `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
+- `å·¥å…·`-`å¼€å‘ç‰ˆ"xxxx"`-`å¼€å‘æ¿ç®¡ç†å™¨` ä¸­ï¼Œæœç´¢ **ESP8266** ï¼Œé€‰ä¸­**esp8266 by ESP8266 Community**ï¼Œå¹¶é€‰æ‹©æœ€æ–°å®‰è£…ã€‚
+- `å·¥å…·`-`å¼€å‘ç‰ˆ"xxxx"` ä¸­ï¼Œé€‰æ‹©**NodeMCU 1.0 (ESP-12E) Module**
+- `å·¥å…·`-`ç«¯å£"xxxx"` ä¸­ï¼Œå¯»æ‰¾æ¥å…¥NodeMCUåè¯†åˆ«çš„ä¸²å£ã€‚
 
-## ±àÒëÔ´Âë
-- ÏÂÔØ»òÕß clone Ô´Âëµ½±¾µØ
-- ½« `Libraries` Ä¿Â¼ÏÂµÄÈ«²¿ÎÄ¼ş¿½±´µ½ `ÎÄµµ\Arduino\Libraries`Ä¿Â¼ÏÂ
-- Ë«»÷´ò¿ª [`ESPEasy\ESPEasy.ino`](ESPEasy/ESPEasy.ino) ¼´¿É´ò¿ª `Arduino IDE`
-- ¸üĞÂÍê³ÉÔ´Âëºó£¬µã»÷`ÏîÄ¿`-`ÉÏ´«`£¬¼´¿É±àÒë¹Ì¼ş²¢ÍÆËÍµ½¿ª·¢°åÉÏ
+## ç¼–è¯‘æºç 
+- ä¸‹è½½æˆ–è€… clone æºç åˆ°æœ¬åœ°
+- å°† `Libraries` ç›®å½•ä¸‹çš„å…¨éƒ¨æ–‡ä»¶æ‹·è´åˆ° `æ–‡æ¡£\Arduino\Libraries`ç›®å½•ä¸‹
+- åŒå‡»æ‰“å¼€ [`ESPEasy\ESPEasy.ino`](ESPEasy/ESPEasy.ino) å³å¯æ‰“å¼€ `Arduino IDE`
+- æ›´æ–°å®Œæˆæºç åï¼Œç‚¹å‡»`é¡¹ç›®`-`ä¸Šä¼ `ï¼Œå³å¯ç¼–è¯‘å›ºä»¶å¹¶æ¨é€åˆ°å¼€å‘æ¿ä¸Š
 
-## ÆôÓÃ×Ô¶¨ÒåÉèÖÃ£¨¿ÉÑ¡£©
-- ½«¹¤×÷Ä¿Â¼ÏÂµÄ [`Custom-sample.h`](ESPEasy/Custom-sample.h) ¸´ÖÆ²¢ÃüÃûÎª `Custom.h`
-- ´ò¿ª `%UserProfile%\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.4.1\platform.txt` ÎÄ¼ş
-  - ÕÒµ½ `build.extra_flags` ¸ÃĞĞ
-  - ÔÚºóÃæÌí¼Ó²ÎÊı ` -DUSE_CUSTOM_H`
-  - ×¢Òâ£ºÂ·¾¶Ãû¸ù¾İ°æ±¾²»Í¬£¬ÓÖÓĞĞ©Ğí±ä»¯
+## å¯ç”¨è‡ªå®šä¹‰è®¾ç½®ï¼ˆå¯é€‰ï¼‰
+- å°†å·¥ä½œç›®å½•ä¸‹çš„ [`Custom-sample.h`](ESPEasy/Custom-sample.h) å¤åˆ¶å¹¶å‘½åä¸º `Custom.h`
+- æ‰“å¼€ `%UserProfile%\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.4.1\platform.txt` æ–‡ä»¶
+  - æ‰¾åˆ° `build.extra_flags` è¯¥è¡Œ
+  - åœ¨åé¢æ·»åŠ å‚æ•° ` -DUSE_CUSTOM_H`
+  - æ³¨æ„ï¼šè·¯å¾„åæ ¹æ®ç‰ˆæœ¬ä¸åŒï¼Œåˆæœ‰äº›è®¸å˜åŒ–
