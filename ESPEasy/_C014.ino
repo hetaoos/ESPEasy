@@ -93,8 +93,8 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
                   //if (x < valueCount - 1)
                   //  prop_name += ", ";
                 }
-                data[F("idx")] = event->idx;
-                data[F("type")] =  Settings.TaskDeviceNumber[event->TaskIndex];
+                //data[F("idx")] = event->idx;
+                //data[F("type")] =  Settings.TaskDeviceNumber[event->TaskIndex];
                 //data[F("device_name")] = ExtraTaskSettings.TaskDeviceName;
                 //data[F("property_names")] = prop_name;
               }
