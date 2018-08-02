@@ -5256,11 +5256,15 @@ void handle_sysinfo() {
   #endif
 
   if (showSettingsFileLayout) {
-    TXBuffer += F("<TR><TD colspan=2><H3>Settings File</H3></TD></TR>");
+    TXBuffer += F("<TR><TD colspan=2><H3>Settings Files</H3></TD></TR>");
     TXBuffer += F("<TR><TD>");
-    TXBuffer += F("Layout 'config.dat'");
+    TXBuffer += F("Layout Settings File");
     TXBuffer += F("<TD>");
     getConfig_dat_file_layout();
+    TXBuffer += F("<TR><TD>");
+    TXBuffer += F("<TD>");
+    TXBuffer += F("(offset / size per item / index)");
+
     for (int st = 0; st < SettingsType_MAX; ++st) {
       SettingsType settingsType = static_cast<SettingsType>(st);
       TXBuffer += F("<TR><TD>");
@@ -5290,7 +5294,6 @@ void handle_sysinfo() {
    sendHeadandTail(F("TmplStd"),true);
   TXBuffer.endStream();
 }
-
 
 //********************************************************************************
 // URNEncode char string to string object
@@ -5374,6 +5377,8 @@ void createSvgTextElement(const String& text, float textXoffset, float textYoffs
 
 unsigned int getSettingsTypeColor(SettingsType settingsType) {
   switch (settingsType) {
+    case BasicSettings_Type:
+      return 0x5F0A87;
     case TaskSettings_Type:
       return 0xEE6352;
     case CustomTaskSettings_Type:
