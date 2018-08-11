@@ -344,6 +344,7 @@
 #define VALUE_SOURCE_HTTP                   3
 #define VALUE_SOURCE_MQTT                   4
 #define VALUE_SOURCE_UDP                    5
+#define VALUE_SOURCE_WEB_FRONTEND           6
 
 #define BOOT_CAUSE_MANUAL_REBOOT            0
 #define BOOT_CAUSE_COLD_BOOT                1
@@ -1028,13 +1029,13 @@ struct EventStruct
         , ProtocolIndex(event.ProtocolIndex), NotificationIndex(event.NotificationIndex)
         , BaseVarIndex(event.BaseVarIndex), idx(event.idx), sensorType(event.sensorType)
         , Par1(event.Par1), Par2(event.Par2), Par3(event.Par3), Par4(event.Par4), Par5(event.Par5)
-        , OriginTaskIndex(event.OriginTaskIndex), Data(event.Data) {
-          String1 = event.String1;
-          String2 = event.String2;
-          String3 = event.String3;
-          String4 = event.String4;
-          String5 = event.String5;
-        }
+        , OriginTaskIndex(event.OriginTaskIndex)
+        , String1(event.String1)
+        , String2(event.String2)
+        , String3(event.String3)
+        , String4(event.String4)
+        , String5(event.String5)
+        , Data(event.Data) {}
 
   byte Source;
   byte TaskIndex; // index position in TaskSettings array, 0-11
@@ -1339,7 +1340,18 @@ byte CPlugin_id[CPLUGIN_MAX];
 boolean (*NPlugin_ptr[NPLUGIN_MAX])(byte, struct EventStruct*, String&);
 byte NPlugin_id[NPLUGIN_MAX];
 
-String dummyString = "";
+String dummyString = "";  // FIXME @TD-er  This may take a lot of memory over time, since long-lived Strings only tend to grow.
+
+enum PluginPtrType {
+  TaskPluginEnum,
+  ControllerPluginEnum,
+  NotificationPluginEnum,
+  CommandTimerEnum
+};
+void schedule_event_timer(PluginPtrType ptr_type, byte Index, byte Function, struct EventStruct* event);
+unsigned long createSystemEventMixedId(PluginPtrType ptr_type, byte Index, byte Function);
+unsigned long createSystemEventMixedId(PluginPtrType ptr_type, uint16_t crc16);
+
 
 byte lastBootCause = BOOT_CAUSE_MANUAL_REBOOT;
 
