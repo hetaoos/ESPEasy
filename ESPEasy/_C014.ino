@@ -84,10 +84,10 @@ boolean CPlugin_014(byte function, struct EventStruct *event, String& string)
                 byte valueCount = getValueCountFromSensorType(event->sensorType);
                 for (byte x = 0; x < valueCount; x++)
                 {
-                  name = F("value");
+                  name = F("D");
                   name += event->idx;
                   name += "_";
-                  name += x;
+                  name += ExtraTaskSettings.TaskDeviceValueNames[x];
                   data[name]  = formatUserVarNoCheck(event, x);
                   //prop_name + = ExtraTaskSettings.TaskDeviceValueNames[x];
                   //if (x < valueCount - 1)
